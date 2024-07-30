@@ -24,7 +24,7 @@ export const generateQRCodeString_v002 = async ({
       },
       { abortEarly: false }
     );
-    // Перелік полів для версії 001
+    // Перелік полів для версії 002
     const startCode = "https://bank.gov.ua/qr/"; // Код старту застосунку (https://bank.gov.ua/ua/qr/)
     const serviceTag = "BCD\n"; // Службова мітка
     const formatVersion = "002\n"; // Версія формату
@@ -33,19 +33,21 @@ export const generateQRCodeString_v002 = async ({
 
     // Змінні поля
     const bic = "\n"; // BIC, у цій версії формату - зарезервовано
-    const formattedReceiver = receiver ? `${receiver}\n` : ""; //Прізвище, ім’я, по батькові фізичної особи/найменування юридичної особи
-    const formattedAccount = account ? `${account}\n` : ""; //Номер рахунку отримувача;
-    const formattedAmount = amount ? `${currency}${amount}\n` : ""; //Сума та валюта
-    const formattedReceiverCode = receiverCode ? `${receiverCode}\n` : ""; //ЄДРПОУ /РНОКПП / серію (за наявності) та номер паспорта отримувача
+    const formattedReceiver = receiver ? `${receiver}\n` : "\n"; //Прізвище, ім’я, по батькові фізичної особи/найменування юридичної особи
+    const formattedAccount = account ? `${account}\n` : "\n"; //Номер рахунку отримувача;
+    const formattedAmount = amount ? `${currency}${amount}\n` : "\n"; //Сума та валюта
+    const formattedReceiverCode = receiverCode ? `${receiverCode}\n` : "\n"; //ЄДРПОУ /РНОКПП / серію (за наявності) та номер паспорта отримувача
     const paymentPurposeCode = "\n"; // Код цілі в класифікаторі типів платежів RFU (зарезервовано для подальшого використання)
     const reference = "\n"; // Посилання на рахунок (інвойс) RFU(зарезервовано для подальшого використання)
-    const formattedPaymentPurpose = paymentPurpose ? `${paymentPurpose}\n` : ""; // Призначення платежу;
+    const formattedPaymentPurpose = paymentPurpose
+      ? `${paymentPurpose}\n`
+      : "\n"; // Призначення платежу;
     const formattedDisplayText = displayText ? `${displayText}\n` : "\n"; //Відображення дисплей / Додатковий текст
 
     const formattedString = `${serviceTag}${formatVersion}${encoding}${functionTag}${bic}${formattedReceiver}${formattedAccount}${formattedAmount}${formattedReceiverCode}${paymentPurposeCode}${reference}${formattedPaymentPurpose}${formattedDisplayText}`;
     console.log("formattedString >>>", formattedString);
 
-    const qrString = `${startCode}${Base64.encode(formattedString)}`;
+    const qrString = `${startCode}${Base64.encode(formattedString, true)}`;
     console.log("stringInBase64 >>>", qrString);
 
     return qrString;

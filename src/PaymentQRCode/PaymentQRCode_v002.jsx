@@ -6,6 +6,7 @@ import { generateQRCodeString_v002 } from "../helpers/qrString_v002";
 
 export const PaymentQRCode_v002 = ({ data }) => {
   const [qrString, setQrString] = useState("");
+  const [base64String, setBase64String] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -13,6 +14,7 @@ export const PaymentQRCode_v002 = ({ data }) => {
       const generateQrCode = async () => {
         const result = await generateQRCodeString_v002(data);
         setQrString(result);
+        setBase64String(result);
         setError("");
       };
       generateQrCode();
@@ -29,7 +31,8 @@ export const PaymentQRCode_v002 = ({ data }) => {
       ) : (
         <>
           <QRCode value={qrString} size={256} level="H" includeMargin={true} />
-          {/* <p className="string-area">{qrString}</p> */}
+          <p>Base64:</p>
+          <textarea value={base64String} readOnly rows={10} cols={50} />
         </>
       )}
     </div>

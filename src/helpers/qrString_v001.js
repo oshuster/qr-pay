@@ -25,22 +25,24 @@ export const generateQRCodeString_v001 = async ({
       { abortEarly: false }
     );
     // Перелік полів для версії 001
-    const startCode = " ".repeat(23); // Код старту застосунку (23 пробіли)
+    const startCode = " ".repeat(23); // Код старту застосунку (23 пробіли). Чи потрібно тут переводити н ановий рядок???
     const serviceTag = "BCD\n"; // Службова мітка
     const formatVersion = "001\n"; // Версія формату
     const encoding = "1\n"; // Кодування
     const functionTag = "UCT\n"; // Функція
 
     // Змінні поля
-    const bic = ""; // BIC, у цій версії формату - зарезервовано
-    const formattedReceiver = receiver ? `${receiver}\n` : ""; //Прізвище, ім’я, по батькові фізичної особи/найменування юридичної особи
-    const formattedAccount = account ? `${account}\n` : ""; //Номер рахунку отримувача;
-    const formattedAmount = amount ? `${currency}${amount}\n` : ""; //Сума та валюта
-    const formattedReceiverCode = receiverCode ? `${receiverCode}\n` : ""; //ЄДРПОУ /РНОКПП / серію (за наявності) та номер паспорта отримувача
-    const paymentPurposeCode = ""; // Код цілі в класифікаторі типів платежів RFU (зарезервовано для подальшого використання)
-    const reference = ""; // Посилання на рахунок (інвойс) RFU(зарезервовано для подальшого використання)
-    const formattedPaymentPurpose = paymentPurpose ? `${paymentPurpose}\n` : ""; // Призначення платежу;
-    const formattedDisplayText = displayText ? `${displayText}\n` : ""; //Відображення дисплей / Додатковий текст
+    const bic = "\n"; // BIC, у цій версії формату - зарезервовано
+    const formattedReceiver = receiver ? `${receiver}\n` : "\n"; //Прізвище, ім’я, по батькові фізичної особи/найменування юридичної особи
+    const formattedAccount = account ? `${account}\n` : "\n"; //Номер рахунку отримувача;
+    const formattedAmount = amount ? `${currency}${amount}\n` : "\n"; //Сума та валюта
+    const formattedReceiverCode = receiverCode ? `${receiverCode}\n` : "\n"; //ЄДРПОУ /РНОКПП / серію (за наявності) та номер паспорта отримувача
+    const paymentPurposeCode = "\n"; // Код цілі в класифікаторі типів платежів RFU (зарезервовано для подальшого використання)
+    const reference = "\n"; // Посилання на рахунок (інвойс) RFU(зарезервовано для подальшого використання)
+    const formattedPaymentPurpose = paymentPurpose
+      ? `${paymentPurpose}\n`
+      : "\n"; // Призначення платежу;
+    const formattedDisplayText = displayText ? `${displayText}\n` : "\n"; //Відображення дисплей / Додатковий текст
 
     const formattedString = `${startCode}${serviceTag}${formatVersion}${encoding}${functionTag}${bic}${formattedReceiver}${formattedAccount}${formattedAmount}${formattedReceiverCode}${paymentPurposeCode}${reference}${formattedPaymentPurpose}${formattedDisplayText}`;
     console.log("formattedString >>>", formattedString);
