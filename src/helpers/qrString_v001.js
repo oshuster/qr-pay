@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { qrSchema } from "../schemas/qrSchema";
+import { Base64 } from "js-base64";
 
 export const generateQRCodeString_v001 = async ({
   receiver,
@@ -41,8 +42,11 @@ export const generateQRCodeString_v001 = async ({
     const formattedPaymentPurpose = paymentPurpose ? `${paymentPurpose}\n` : ""; // Призначення платежу;
     const formattedDisplayText = displayText ? `${displayText}\n` : ""; //Відображення дисплей / Додатковий текст
 
-    const qrString = `${startCode}${serviceTag}${formatVersion}${encoding}${functionTag}${bic}${formattedReceiver}${formattedAccount}${formattedAmount}${formattedReceiverCode}${paymentPurposeCode}${reference}${formattedPaymentPurpose}${formattedDisplayText}`;
-    console.log(qrString);
+    const formattedString = `${startCode}${serviceTag}${formatVersion}${encoding}${functionTag}${bic}${formattedReceiver}${formattedAccount}${formattedAmount}${formattedReceiverCode}${paymentPurposeCode}${reference}${formattedPaymentPurpose}${formattedDisplayText}`;
+    console.log("formattedString >>>", formattedString);
+
+    const qrString = `https://bank.gov.ua/qr/${Base64.encode(formattedString)}`;
+    console.log("stringInBase64 >>>", qrString);
 
     return qrString;
   } catch (err) {

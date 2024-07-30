@@ -2,8 +2,9 @@ import QRCode from "qrcode.react";
 import PropTypes from "prop-types";
 import { generateQRCodeString_v001 } from "../helpers/qrString";
 import { useEffect, useState } from "react";
+import "./PaymentQRCode.scss";
 
-export const PaymentQRCode = ({ data }) => {
+export const PaymentQRCode_v001 = ({ data }) => {
   const [qrString, setQrString] = useState("");
   const [error, setError] = useState("");
 
@@ -28,14 +29,14 @@ export const PaymentQRCode = ({ data }) => {
       ) : (
         <>
           <QRCode value={qrString} size={256} level="H" includeMargin={true} />
-          <p>{qrString}</p>
+          <textarea className="string-area">{qrString}</textarea>
         </>
       )}
     </div>
   );
 };
 
-PaymentQRCode.propTypes = {
+PaymentQRCode_v001.propTypes = {
   data: PropTypes.shape({
     receiver: PropTypes.string.isRequired,
     account: PropTypes.string.isRequired,

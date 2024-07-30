@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { PaymentQRCode } from "./PaymentQRCode/PaymentQRCode";
+import { PaymentQRCode_v002 } from "./PaymentQRCode/PaymentQRCode_v002";
 
 function App() {
   const [qrData, setQrData] = useState({
@@ -71,7 +71,7 @@ function App() {
           onChange={handleChange}
         />
       </div>
-      <PaymentQRCode data={qrData} />
+      <PaymentQRCode_v002 data={qrData} />
     </div>
   );
 }
